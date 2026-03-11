@@ -6,29 +6,11 @@ A single-cycle RISC-V (RV32I subset) CPU implemented in SystemVerilog, targeting
 
 The CPU is a classic single-cycle implementation: every instruction completes in exactly one clock cycle. There is no pipelining or caching.
 
-```
-         ┌──────────┐      ┌────────────┐
-clk ────►│  flopr   │      │  imem      │
-         │  (PC reg)│─PC──►│ (instr mem)│─Instr──►┐
-         └──────────┘      └────────────┘          │
-                                                    ▼
-                                          ┌──────────────────┐
-                                          │    controller    │
-                                          │  (maindec +      │
-                                          │   aludec)        │
-                                          └────────┬─────────┘
-                                                   │ control signals
-                                                   ▼
-                                          ┌──────────────────┐
-                                          │     datapath     │
-                                          │  (regfile, ALU,  │
-                                          │   extend, muxes) │
-                                          └────────┬─────────┘
-                                                   │
-                                          ┌────────▼─────────┐
-                                          │  dmem / MMIO     │
-                                          └──────────────────┘
-```
+1. `clk` drives `flopr` (PC register), which outputs `PC`
+2. `PC` feeds `imem` (instruction memory), which outputs `Instr`
+3. `Instr` is decoded by the `controller` (`maindec` + `aludec`), producing control signals
+4. Control signals direct the `datapath` (`regfile`, ALU, sign-extender, muxes)
+5. The datapath reads/writes `dmem` or MMIO peripherals via the memory bus
 
 ## Supported Instructions
 
