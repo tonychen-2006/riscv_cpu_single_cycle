@@ -1,6 +1,6 @@
 # RISC-V Single-Cycle CPU
 
-A single-cycle RISC-V (RV32I subset) CPU implemented in SystemVerilog, targeting Intel DE-series FPGA boards. Based on the design from *Digital Design and Computer Architecture: RISC-V Edition* (Harris & Harris).
+A single-cycle RISC-V (RV32I subset) CPU implemented in SystemVerilog, targeting Intel DE-series FPGA boards.
 
 ## Architecture Overview
 
